@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O PT governou o Brasil por mais de 20 anos? | Explicação Interativa</title>
+  <meta name="description" content="Uma análise visual, neutra e baseada em dados oficiais sobre a distribuição de poder na Presidência, Congresso, estados e municípios (2003–2026)." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .bar-transition {
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Esconder barra de rolagem horizontal mantendo funcionalidade */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="antialiased selection:bg-slate-800 selection:text-white">
+
+  <!-- Barra de progresso superior -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-white/85 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-xl mx-auto px-4 h-12 flex items-center justify-between text-xs font-medium text-slate-600">
+      <span class="font-bold text-slate-900 tracking-tight">DADOS OFICIAIS • 2003–2026</span>
+      <button onclick="shareExperience()" class="px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold transition flex items-center gap-1.5">
+        <span>Compartilhar</span>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="max-w-xl mx-auto px-4 pt-16 pb-20 space-y-16">
+
+    <!-- 1. TELA INICIAL -->
+    <section id="inicio" class="min-h-[82vh] flex flex-col justify-center py-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/80 text-slate-700 text-xs font-semibold w-fit mb-6">
+        <span class="w-2 h-2 rounded-full bg-teal-600"></span>
+        Explicação Interativa • Sem Viés Partidário
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.12] mb-5">
+        “O PT governou o Brasil por mais de 20 anos?”
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 leading-relaxed mb-8">
+        Vamos separar <strong>Presidência</strong>, <strong>Congresso</strong>, <strong>estados</strong> e <strong>municípios</strong> com dados oficiais de 2003 a 2026.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="#presidencia" class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-base shadow-sm transition">
+          Ver os dados ↓
+        </a>
+      </div>
+    </section>
+
+    <!-- 2. PRESIDÊNCIA -->
+    <section id="presidencia" class="scroll-mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">1 de 5 • Executivo Federal</span>
+        <span class="text-xs text-slate-400">2003–2026 (24 anos)</span>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-slate-900">Linha do Tempo da Presidência</h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Toque em cada período abaixo para ver quem ocupou a Presidência, o partido e o tempo exato no cargo entre 2003 e 2026.
+      </p>
+
+      <!-- Barra Proporcional de 24 Anos -->
+      <div class="space-y-2">
+        <div class="h-10 w-full rounded-2xl overflow-hidden flex gap-0.5 bg-slate-100 p-1">
+          <button onclick="selectPresident(0)" id="pres-bar-0" style="width: 33.3%" class="h-full rounded-l-xl bg-teal-700 text-white text-[11px] font-bold flex items-center justify-center transition opacity-100 ring-2 ring-slate-900">Lula</button>
+          <button onclick="selectPresident(1)" id="pres-bar-1" style="width: 22.4%" class="h-full bg-teal-600 text-white text-[11px] font-bold flex items-center justify-center transition opacity-80 hover:opacity-100">Dilma</button>
+          <button onclick="selectPresident(2)" id="pres-bar-2" style="width: 11.0%" class="h-full bg-amber-500 text-slate-950 text-[10px] font-bold flex items-center justify-center transition opacity-80 hover:opacity-100">Temer</button>
+          <button onclick="selectPresident(3)" id="pres-bar-3" style="width: 16.6%" class="h-full bg-slate-600 text-white text-[10px] font-bold flex items-center justify-center transition opacity-80 hover:opacity-100">Bolsonaro</button>
+          <button onclick="selectPresident(4)" id="pres-bar-4" style="width: 16.7%" class="h-full rounded-r-xl bg-teal-700 text-white text-[11px] font-bold flex items-center justify-center transition opacity-80 hover:opacity-100">Lula 3</button>
+        </div>
+        <div class="flex justify-between text-[11px] text-slate-400 font-medium px-1">
+          <span>2003</span>
+          <span>2011</span>
+          <span>2016</span>
+          <span>2019</span>
+          <span>2023</span>
+          <span>2026</span>
+        </div>
+      </div>
+
+      <!-- Cards Horizontais Clicáveis -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+        <button onclick="selectPresident(0)" id="pres-btn-0" class="pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white transition">Lula I e II</button>
+        <button onclick="selectPresident(1)" id="pres-btn-1" class="pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Dilma I e II</button>
+        <button onclick="selectPresident(2)" id="pres-btn-2" class="pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Temer</button>
+        <button onclick="selectPresident(3)" id="pres-btn-3" class="pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Bolsonaro</button>
+        <button onclick="selectPresident(4)" id="pres-btn-4" class="pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Lula III</button>
+      </div>
+
+      <!-- Detalhe do Presidente Selecionado -->
+      <div id="pres-detail" class="bg-slate-50 rounded-2xl p-5 border border-slate-200/80 fade-in">
+        <!-- Preenchido via JS -->
+      </div>
+
+      <!-- Resumo de Tempo por Partido -->
+      <div class="grid grid-cols-3 gap-2.5 pt-1">
+        <div class="bg-teal-50/70 border border-teal-200/60 rounded-2xl p-3 text-center">
+          <div class="text-xs text-teal-800 font-semibold">PT</div>
+          <div class="text-lg font-extrabold text-teal-950">17a 4m</div>
+          <div class="text-[11px] text-teal-700">72,4% do período</div>
+        </div>
+        <div class="bg-slate-100 border border-slate-200 rounded-2xl p-3 text-center">
+          <div class="text-xs text-slate-600 font-semibold">PSL / PL</div>
+          <div class="text-lg font-extrabold text-slate-900">4 anos</div>
+          <div class="text-[11px] text-slate-500">16,7% do período</div>
+        </div>
+        <div class="bg-amber-50/80 border border-amber-200/60 rounded-2xl p-3 text-center">
+          <div class="text-xs text-amber-900 font-semibold">PMDB / MDB</div>
+          <div class="text-lg font-extrabold text-amber-950">2a 7m</div>
+          <div class="text-[11px] text-amber-800">10,9% (Pós-impeach.)</div>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-900 text-white text-center font-semibold text-sm">
+        “Tempo de PT na Presidência ≠ controle de todo o Estado brasileiro.”
+      </div>
+    </section>
+
+    <!-- 3. CONGRESSO NACIONAL -->
+    <section id="congresso" class="scroll-mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">2 de 5 • Poder Legislativo</span>
+        <span class="text-xs text-slate-400">Eleições 2002–2026</span>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-slate-900">Câmara e Senado</h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Escolha o ano da eleição para comparar as cadeiras do PT com o total do Congresso Nacional.
+      </p>
+
+      <!-- Seletor de Ano -->
+      <div class="grid grid-cols-4 sm:grid-cols-7 gap-1.5" id="congress-year-buttons">
+        <!-- Gerado via JS -->
+      </div>
+
+      <!-- Painel Câmara e Senado -->
+      <div id="congress-panel" class="space-y-5 fade-in">
+        <!-- Câmara -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="flex justify-between items-baseline">
+            <h3 class="font-bold text-slate-900 text-base">Câmara dos Deputados</h3>
+            <span class="text-xs font-semibold text-slate-500">Total: 513 cadeiras</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">Cadeiras do PT</div>
+              <div id="cam-pt-seats" class="text-xl font-extrabold text-teal-700">91</div>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">% do PT</div>
+              <div id="cam-pt-pct" class="text-xl font-extrabold text-slate-900">17,7%</div>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">Maior Bancada</div>
+              <div id="cam-leader" class="text-sm font-extrabold text-slate-800 mt-1">PT (91)</div>
+            </div>
+          </div>
+          <!-- Barra visual Câmara -->
+          <div class="space-y-1">
+            <div class="relative h-6 w-full bg-slate-200 rounded-full overflow-hidden flex">
+              <div id="cam-bar" class="h-full bg-teal-600 bar-transition" style="width: 17.7%"></div>
+              <!-- Linha de Maioria (50%) -->
+              <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-900 z-10"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-slate-500 font-medium">
+              <span id="cam-bar-label">PT: 17,7%</span>
+              <span class="font-bold text-slate-800">▲ Maioria absoluta: 257 (50%)</span>
+              <span id="cam-other-label">Outros: 82,3%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Senado -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="flex justify-between items-baseline">
+            <h3 class="font-bold text-slate-900 text-base">Senado Federal</h3>
+            <span class="text-xs font-semibold text-slate-500">Total: 81 cadeiras</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">Cadeiras do PT</div>
+              <div id="sen-pt-seats" class="text-xl font-extrabold text-teal-700">14</div>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">% do PT</div>
+              <div id="sen-pt-pct" class="text-xl font-extrabold text-slate-900">17,3%</div>
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200/80">
+              <div class="text-[11px] text-slate-500">Maior Bancada</div>
+              <div id="sen-leader" class="text-sm font-extrabold text-slate-800 mt-1">PMDB (20)</div>
+            </div>
+          </div>
+          <!-- Barra visual Senado -->
+          <div class="space-y-1">
+            <div class="relative h-6 w-full bg-slate-200 rounded-full overflow-hidden flex">
+              <div id="sen-bar" class="h-full bg-teal-600 bar-transition" style="width: 17.3%"></div>
+              <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-slate-900 z-10"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-slate-500 font-medium">
+              <span id="sen-bar-label">PT: 17,3%</span>
+              <span class="font-bold text-slate-800">▲ Maioria absoluta: 41 (50%)</span>
+              <span id="sen-other-label">Outros: 82,7%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pergunta Automática -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white flex items-center justify-between gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">Pergunta automática</div>
+          <div class="text-sm font-bold mt-0.5">O PT teve maioria absoluta sozinho?</div>
+          <div id="congress-answer-nums" class="text-xs text-slate-300 mt-1">Câmara: 91 de 257 necessários • Senado: 14 de 41 necessários</div>
+        </div>
+        <div class="shrink-0 px-4 py-2 rounded-xl bg-amber-400 text-slate-950 font-black text-lg">
+          NÃO
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ESTADOS E MUNICÍPIOS -->
+    <section id="estados" class="scroll-mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">3 de 5 • Governos Subnacionais</span>
+        <span class="text-xs text-slate-400">27 Estados e 5.569 Municípios</span>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-slate-900">Estados e Municípios</h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Toque em qualquer estado no mapa cartográfico abaixo para ver todos os seus governadores e partidos entre 2003 e 2026.
+      </p>
+
+      <!-- Cartograma Interativo do Brasil (27 UFs posicionadas geograficamente) -->
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-bold text-slate-500 uppercase">Mapa Interativo do Brasil (27 UFs)</span>
+          <button onclick="selectState('SP')" class="text-xs font-bold text-teal-700 underline">Destacar São Paulo (SP)</button>
+        </div>
+
+        <!-- Grid Cartográfico 7x7 -->
+        <div class="grid grid-cols-7 gap-1.5 max-w-xs mx-auto text-center text-xs font-bold select-none" id="brazil-map-grid">
+          <!-- Gerado via JS -->
+        </div>
+
+        <div class="flex justify-center gap-4 mt-4 text-[11px] text-slate-600">
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-slate-900 inline-block"></span> Estado selecionado</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-teal-100 border border-teal-400 inline-block"></span> Já teve gov. do PT (2003–26)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-white border border-slate-300 inline-block"></span> Nunca teve gov. do PT</span>
+        </div>
+      </div>
+
+      <!-- Card do Estado Selecionado -->
+      <div id="state-detail" class="p-5 rounded-2xl bg-slate-900 text-white space-y-3 fade-in">
+        <!-- Preenchido via JS (Padrão inicial: São Paulo) -->
+      </div>
+
+      <!-- Gráfico Simples: Governadores Eleitos pelo PT por Eleição -->
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+        <div class="flex justify-between items-baseline">
+          <h3 class="font-bold text-slate-900 text-sm">Governadores do PT em cada eleição</h3>
+          <span class="text-xs text-slate-500">Total do país: 27 UFs</span>
+        </div>
+        <div class="grid grid-cols-7 gap-2 items-end h-28 pt-4 px-1" id="gov-chart">
+          <!-- Barras geradas via JS -->
+        </div>
+        <p class="text-xs text-slate-500 text-center pt-1">
+          No auge (2006, 2010 e 2014), o PT governou <strong>5 de 27 estados (18,5%)</strong>. Nos municípios, o recorde foi <strong>11,4% das prefeituras</strong> em 2012 (e <strong>4,5%</strong> em 2024).
+        </p>
+      </div>
+    </section>
+
+    <!-- 5. COMO O BRASIL É GOVERNADO (FLUXOGRAMA) -->
+    <section id="como-funciona" class="scroll-mt-16 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full">4 de 5 • Constituição de 1988</span>
+        <span class="text-xs text-slate-400">Pacto Federativo</span>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-slate-900">Como o Brasil é governado</h2>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        O poder no Brasil é dividido por lei. Toque em cada bloco abaixo para ver o que cada instituição decide em 1 frase.
+      </p>
+
+      <!-- Fluxograma Interativo -->
+      <div class="space-y-2.5" id="flowchart-list">
+        <!-- Gerado via JS -->
+      </div>
+    </section>
+
+    <!-- 6. CONCLUSÃO -->
+    <section id="conclusao" class="scroll-mt-16 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-md space-y-6">
+      <span class="text-xs font-bold uppercase tracking-wider text-teal-300 bg-teal-950/80 border border-teal-700/50 px-3 py-1 rounded-full">5 de 5 • Síntese dos Dados</span>
+
+      <blockquote class="text-xl sm:text-2xl font-bold leading-snug text-slate-100 border-l-4 border-teal-400 pl-4">
+        “Um partido pode ocupar a Presidência sem controlar sozinho Câmara, Senado, estados e municípios.”
+      </blockquote>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center pt-1">
+        <div class="bg-slate-800/90 p-3 rounded-2xl">
+          <div class="text-[11px] text-slate-400">Presidência (PT)</div>
+          <div class="text-lg font-extrabold text-teal-400">17a 4m</div>
+          <div class="text-[10px] text-slate-400">de 24 anos</div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-2xl">
+          <div class="text-[11px] text-slate-400">Máx. na Câmara</div>
+          <div class="text-lg font-extrabold text-teal-400">17,7%</div>
+          <div class="text-[10px] text-slate-400">91 de 513 dep.</div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-2xl">
+          <div class="text-[11px] text-slate-400">Máx. no Senado</div>
+          <div class="text-lg font-extrabold text-teal-400">17,3%</div>
+          <div class="text-[10px] text-slate-400">14 de 81 sen.</div>
+        </div>
+        <div class="bg-slate-800/90 p-3 rounded-2xl">
+          <div class="text-[11px] text-slate-400">Máx. Estados</div>
+          <div class="text-lg font-extrabold text-teal-400">5 de 27</div>
+          <div class="text-[10px] text-slate-400">SP: 0 anos</div>
+        </div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-800 border border-slate-700 text-center space-y-2">
+        <p class="text-xs uppercase tracking-wider text-amber-400 font-bold">Reflexão baseada nos números</p>
+        <p class="text-base sm:text-lg font-bold text-white">
+          “Então ‘estar na Presidência’ é a mesma coisa que ‘controlar o Brasil inteiro’?”
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button onclick="toggleSources()" class="flex-1 py-3.5 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-sm transition">
+          Ver fontes oficiais
+        </button>
+        <button onclick="shareExperience()" id="share-btn-bottom" class="flex-1 py-3.5 px-5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-sm transition flex items-center justify-center gap-2">
+          <span>Compartilhar / Copiar link</span>
+        </button>
+      </div>
+
+      <!-- Notificação de link copiado -->
+      <div id="copy-toast" class="hidden text-center text-xs font-semibold text-teal-300 bg-teal-950/90 border border-teal-700 rounded-xl py-2 px-3">
+        Link copiado para a área de transferência!
+      </div>
+
+      <!-- 7. FONTES OFICIAIS (Acordeão) -->
+      <div id="sources-box" class="hidden pt-4 border-t border-slate-800 text-xs text-slate-300 space-y-2 fade-in">
+        <div class="font-bold text-white uppercase tracking-wider">Fontes Primárias Verificáveis:</div>
+        <ul class="space-y-1.5 list-disc pl-4">
+          <li><strong>TSE (Tribunal Superior Eleitoral):</strong> Portal de Dados Abertos e Estatísticas Eleitorais (Eleições Gerais 2002–2026 e Municipais 2004–2024).</li>
+          <li><strong>Câmara dos Deputados:</strong> Bancadas eleitas e na posse da 52ª à 58ª Legislatura (513 deputados).</li>
+          <li><strong>Senado Federal:</strong> Composição partidária histórica da 52ª à 58ª Legislatura (81 senadores).</li>
+          <li><strong>Constituição Federal de 1988:</strong> Art. 2º (Separação dos Poderes) e Arts. 18 a 31 (Repartição de competências entre União, Estados e Municípios).</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // 1. DADOS DA PRESIDÊNCIA (2003-2026)
+    const presidents = [
+      {
+        title: "Luiz Inácio Lula da Silva (Lula I e II)",
+        period: "01/01/2003 a 31/12/2010",
+        party: "PT (Vice: José Alencar - PL/PRB)",
+        duration: "8 anos exatos (96 meses)",
+        note: "Governou em coalizão multipartidária (PT, PL/PR, PCdoB, PSB, PTB, PMDB e PP)."
+      },
+      {
+        title: "Dilma Rousseff (Dilma I e II)",
+        period: "01/01/2011 a 12/05/2016",
+        party: "PT (Vice: Michel Temer - PMDB)",
+        duration: "5 anos, 4 meses e 12 dias",
+        note: "Afastada pelo Senado em 12/05/2016 e destituída definitivamente em 31/08/2016."
+      },
+      {
+        title: "Michel Temer",
+        period: "12/05/2016 a 31/12/2018",
+        party: "PMDB / MDB (Sem vice-presidente)",
+        duration: "2 anos, 7 meses e 19 dias",
+        note: "Assumiu após ruptura formal do PMDB com o PT e impeachment, aplicando programa próprio (Teto de Gastos e Reforma Trabalhista)."
+      },
+      {
+        title: "Jair Bolsonaro",
+        period: "01/01/2019 a 31/12/2022",
+        party: "PSL / Sem Partido / PL (Vice: Hamilton Mourão - PRTB/Rep.)",
+        duration: "4 anos exatos (48 meses)",
+        note: "Eleito pelo PSL em 2018; governou em aliança com partidos de direita e do Centrão (PP, PL, Republicanos)."
+      },
+      {
+        title: "Luiz Inácio Lula da Silva (Lula III)",
+        period: "01/01/2023 a 31/12/2026",
+        party: "PT (Vice: Geraldo Alckmin - PSB)",
+        duration: "4 anos (mandato até 31/12/2026)",
+        note: "Governo de frente ampla com ministérios distribuídos entre PT, PSB, MDB, PSD, União Brasil, PP e Republicanos."
+      }
+    ];
+
+    function selectPresident(index) {
+      const p = presidents[index];
+      document.getElementById('pres-detail').innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <h3 class="font-extrabold text-slate-900 text-base">${p.title}</h3>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800">${p.duration}</span>
+        </div>
+        <div class="text-xs font-semibold text-teal-800 mb-1">Período: ${p.period} • Partido: ${p.party}</div>
+        <p class="text-xs text-slate-600 leading-relaxed">${p.note}</p>
+      `;
+      for (let i = 0; i < 5; i++) {
+        const btn = document.getElementById(`pres-btn-${i}`);
+        const bar = document.getElementById(`pres-bar-${i}`);
+        if (i === index) {
+          btn.className = "pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white transition";
+          bar.classList.add('ring-2', 'ring-slate-900', 'opacity-100');
+          bar.classList.remove('opacity-80');
+        } else {
+          btn.className = "pres-tab shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+          bar.classList.remove('ring-2', 'ring-slate-900', 'opacity-100');
+          bar.classList.add('opacity-80');
+        }
+      }
+    }
+
+    // 2. DADOS DO CONGRESSO (2002-2026)
+    const congressData = {
+      "2002": { camPt: 91, camPct: 17.7, camLeader: "PT (91)", senPt: 14, senPct: 17.3, senLeader: "PMDB (20)" },
+      "2006": { camPt: 83, camPct: 16.2, camLeader: "PMDB (89)", senPt: 11, senPct: 13.6, senLeader: "PMDB/PFL (18)" },
+      "2010": { camPt: 88, camPct: 17.2, camLeader: "PT (88)", senPt: 14, senPct: 17.3, senLeader: "PMDB (20)" },
+      "2014": { camPt: 69, camPct: 13.5, camLeader: "PT (69)", senPt: 12, senPct: 14.8, senLeader: "PMDB (18)" },
+      "2018": { camPt: 56, camPct: 10.9, camLeader: "PT (56)", senPt: 6,  senPct: 7.4,  senLeader: "MDB (12)" },
+      "2022": { camPt: 68, camPct: 13.3, camLeader: "PL (99)", senPt: 9,  senPct: 11.1, senLeader: "PSD (15)" },
+      "2026": { camPt: 73, camPct: 14.2, camLeader: "PL (121)", senPt: 9, senPct: 11.1, senLeader: "PL (28)" }
+    };
+
+    function renderCongressButtons(activeYear = "2002") {
+      const container = document.getElementById('congress-year-buttons');
+      container.innerHTML = Object.keys(congressData).map(year => `
+        <button onclick="selectCongressYear('${year}')" class="py-2 rounded-xl text-xs font-bold transition ${
+          year === activeYear ? 'bg-slate-900 text-white shadow-sm' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+        }">${year}</button>
+      `).join('');
+    }
+
+    function selectCongressYear(year) {
+      renderCongressButtons(year);
+      const d = congressData[year];
+      document.getElementById('cam-pt-seats').textContent = d.camPt;
+      document.getElementById('cam-pt-pct').textContent = d.camPct.toFixed(1).replace('.', ',') + '%';
+      document.getElementById('cam-leader').textContent = d.camLeader;
+      document.getElementById('cam-bar').style.width = d.camPct + '%';
+      document.getElementById('cam-bar-label').textContent = `PT: ${d.camPct.toFixed(1).replace('.', ',')}%`;
+      document.getElementById('cam-other-label').textContent = `Outros: ${(100 - d.camPct).toFixed(1).replace('.', ',')}%`;
+
+      document.getElementById('sen-pt-seats').textContent = d.senPt;
+      document.getElementById('sen-pt-pct').textContent = d.senPct.toFixed(1).replace('.', ',') + '%';
+      document.getElementById('sen-leader').textContent = d.senLeader;
+      document.getElementById('sen-bar').style.width = d.senPct + '%';
+      document.getElementById('sen-bar-label').textContent = `PT: ${d.senPct.toFixed(1).replace('.', ',')}%`;
+      document.getElementById('sen-other-label').textContent = `Outros: ${(100 - d.senPct).toFixed(1).replace('.', ',')}%`;
+
+      document.getElementById('congress-answer-nums').textContent =
+        `Em ${year}: Câmara ${d.camPt} de 257 necessários • Senado ${d.senPt} de 41 necessários`;
+    }
+
+    // 3. DADOS DOS ESTADOS (27 UFs: 2003-2026)
+    const statesData = {
+      "SP": { name: "São Paulo", ptYears: 0, history: "2003–2006: Geraldo Alckmin (PSDB) / Cláudio Lembo (PFL) • 2007–2010: José Serra / Alberto Goldman (PSDB) • 2011–2018: Geraldo Alckmin (PSDB) / Márcio França (PSB) • 2019–2022: João Doria / Rodrigo Garcia (PSDB) • 2023–2026: Tarcísio de Freitas (Republicanos, reeleito em 2026)." },
+      "MG": { name: "Minas Gerais", ptYears: 4, history: "2003–2010: Aécio Neves (PSDB) • 2010–2014: Antonio Anastasia / Alberto Pinto Coelho (PSDB/PP) • 2015–2018: Fernando Pimentel (PT) • 2019–2026: Romeu Zema (Novo)." },
+      "RJ": { name: "Rio de Janeiro", ptYears: 0, history: "2003–2006: Rosinha Garotinho (PSB/PMDB) • 2007–2014: Sérgio Cabral (PMDB) • 2014–2018: Luiz Fernando Pezão (PMDB) • 2019–2020: Wilson Witzel (PSC) • 2020–2026: Cláudio Castro (PL)." },
+      "ES": { name: "Espírito Santo", ptYears: 0, history: "2003–2010: Paulo Hartung (PSB/PMDB) • 2011–2014: Renato Casagrande (PSB) • 2015–2018: Paulo Hartung (PMDB) • 2019–2026: Renato Casagrande (PSB)." },
+      "BA": { name: "Bahia", ptYears: 20, history: "2003–2006: Paulo Souto (PFL) • 2007–2014: Jaques Wagner (PT) • 2015–2022: Rui Costa (PT) • 2023–2026: Jerônimo Rodrigues (PT, reeleito em 2026)." },
+      "PI": { name: "Piauí", ptYears: 20, history: "2003–2010: Wellington Dias (PT) • 2010–2014: Wilson Martins (PSB) / Zé Filho (PMDB) • 2015–2022: Wellington Dias (PT) / Regina Sousa (PT) • 2023–2026: Rafael Fonteles (PT, reeleito em 2026)." },
+      "CE": { name: "Ceará", ptYears: 12, history: "2003–2006: Lúcio Alcântara (PSDB) • 2007–2014: Cid Gomes (PSB) • 2015–2022: Camilo Santana (PT) / Izolda Cela • 2023–2026: Elmano de Freitas (PT, reeleito em 2026)." },
+      "RN": { name: "Rio Grande do Norte", ptYears: 8, history: "2003–2010: Wilma de Faria (PSB) • 2011–2014: Rosalba Ciarlini (DEM) • 2015–2018: Robinson Faria (PSD) • 2019–2026: Fátima Bezerra (PT)." },
+      "AC": { name: "Acre", ptYears: 16, history: "2003–2006: Jorge Viana (PT) • 2007–2010: Binho Marques (PT) • 2011–2018: Tião Viana (PT) • 2019–2026: Gladson Cameli (PP)." },
+      "RS": { name: "Rio Grande do Sul", ptYears: 4, history: "2003–2006: Germano Rigotto (PMDB) • 2007–2010: Yeda Crusius (PSDB) • 2011–2014: Tarso Genro (PT) • 2015–2018: José Ivo Sartori (PMDB) • 2019–2026: Eduardo Leite (PSDB/PSD)." },
+      "PR": { name: "Paraná", ptYears: 0, history: "2003–2010: Roberto Requião (PMDB) • 2011–2018: Beto Richa (PSDB) / Cida Borghetti (PP) • 2019–2026: Ratinho Júnior (PSD)." },
+      "SC": { name: "Santa Catarina", ptYears: 0, history: "2003–2010: Luiz Henrique da Silveira (PMDB) • 2011–2018: Raimundo Colombo (DEM/PSD) • 2019–2022: Carlos Moisés (PSL/Rep.) • 2023–2026: Jorginho Mello (PL)." },
+      "DF": { name: "Distrito Federal", ptYears: 4, history: "2003–2006: Joaquim Roriz (PMDB) • 2007–2010: José Roberto Arruda (PFL) • 2011–2014: Agnelo Queiroz (PT) • 2015–2018: Rodrigo Rollemberg (PSB) • 2019–2026: Ibaneis Rocha (MDB)." },
+      "GO": { name: "Goiás", ptYears: 0, history: "2003–2006: Marconi Perillo (PSDB) • 2007–2010: Alcides Rodrigues (PP) • 2011–2018: Marconi Perillo / José Eliton (PSDB) • 2019–2026: Ronaldo Caiado (DEM/União)." },
+      "MS": { name: "Mato Grosso do Sul", ptYears: 4, history: "2003–2006: Zeca do PT (PT) • 2007–2014: André Puccinelli (PMDB) • 2015–2022: Reinaldo Azambuja (PSDB) • 2023–2026: Eduardo Riedel (PSDB/PP)." },
+      "MT": { name: "Mato Grosso", ptYears: 0, history: "2003–2010: Blairo Maggi (PPS/PR) • 2010–2014: Silval Barbosa (PMDB) • 2015–2018: Pedro Taques (PDT/PSDB) • 2019–2026: Mauro Mendes (DEM/União)." },
+      "PA": { name: "Pará", ptYears: 4, history: "2003–2006: Simão Jatene (PSDB) • 2007–2010: Ana Júlia Carepa (PT) • 2011–2018: Simão Jatene (PSDB) • 2019–2026: Helder Barbalho (MDB)." },
+      "SE": { name: "Sergipe", ptYears: 7, history: "2003–2006: João Alves Filho (PFL) • 2007–2013: Marcelo Déda (PT) • 2013–2018: Jackson Barreto (PMDB) • 2019–2022: Belivaldo Chagas (PSD) • 2023–2026: Fábio Mitidieri (PSD)." },
+      "PE": { name: "Pernambuco", ptYears: 0, history: "2003–2006: Jarbas Vasconcelos (PMDB) • 2007–2014: Eduardo Campos (PSB) • 2015–2022: Paulo Câmara (PSB) • 2023–2026: Raquel Lyra (PSDB/PSD)." },
+      "AM": { name: "Amazonas", ptYears: 0, history: "2003–2010: Eduardo Braga (PPS/PMDB) • 2010–2014: Omar Aziz (PMN/PSD) • 2015–2018: José Melo (PROS) / Amazonino Mendes (PDT) • 2019–2026: Wilson Lima (PSC/União)." },
+      "MA": { name: "Maranhão", ptYears: 0, history: "2003–2006: José Reinaldo Tavares (PFL/PSB) • 2007–2009: Jackson Lago (PDT) • 2009–2014: Roseana Sarney (PMDB) • 2015–2022: Flávio Dino (PCdoB/PSB) • 2022–2026: Carlos Brandão (PSB)." },
+      "PB": { name: "Paraíba", ptYears: 0, history: "2003–2009: Cássio Cunha Lima (PSDB) • 2009–2010: José Maranhão (PMDB) • 2011–2018: Ricardo Coutinho (PSB) • 2019–2026: João Azevêdo (PSB)." },
+      "AL": { name: "Alagoas", ptYears: 0, history: "2003–2006: Ronaldo Lessa (PSB) • 2007–2014: Teotônio Vilela Filho (PSDB) • 2015–2022: Renan Filho (PMDB/MDB) • 2022–2026: Paulo Dantas (MDB)." },
+      "RO": { name: "Rondônia", ptYears: 0, history: "2003–2010: Ivo Cassol (PSDB/PP) • 2011–2018: Confúcio Moura (PMDB) • 2019–2026: Marcos Rocha (PSL/União)." },
+      "RR": { name: "Roraima", ptYears: 0, history: "2003–2004: Flamarion Portela (PSL/PTC) • 2004–2007: Ottomar Pinto (PTB/PSDB) • 2007–2014: José de Anchieta Jr. (PSDB) • 2015–2018: Suely Campos (PP) • 2019–2026: Antonio Denarium (PSL/PP)." },
+      "AP": { name: "Amapá", ptYears: 0, history: "2003–2010: Waldez Góes (PDT) • 2011–2014: Camilo Capiberibe (PSB) • 2015–2022: Waldez Góes (PDT) • 2023–2026: Clécio Luís (Solidariedade/União)." },
+      "TO": { name: "Tocantins", ptYears: 0, history: "2003–2009: Marcelo Miranda (PFL/PMDB) • 2009–2010: Carlos Gaguim (PMDB) • 2011–2014: Siqueira Campos (PSDB) • 2015–2018: Marcelo Miranda (PMDB) • 2018–2021: Mauro Carlesse (PHS/DEM) • 2021–2026: Wanderlei Barbosa (Republicanos)." }
+    };
+
+    // Posicionamento geográfico no grid 7x7
+    const mapLayout = [
+      [null, "RR", "AP", null, null, null, null],
+      ["AM", "PA", "MA", "CE", "RN", null, null],
+      ["AC", "RO", "TO", "PI", "PB", "PE", null],
+      [null, "MT", "GO", "DF", "BA", "AL", "SE"],
+      [null, "MS", "MG", "ES", null, null, null],
+      [null, null, "SP", "RJ", null, null, null],
+      [null, "PR", "SC", "RS", null, null, null]
+    ];
+
+    function renderMap(selectedUF = "SP") {
+      const grid = document.getElementById('brazil-map-grid');
+      grid.innerHTML = mapLayout.flat().map(uf => {
+        if (!uf) return `<div></div>`;
+        const st = statesData[uf];
+        const isSelected = uf === selectedUF;
+        const hadPt = st.ptYears > 0;
+        let classes = "py-2 rounded-lg border transition cursor-pointer ";
+        if (isSelected) {
+          classes += "bg-slate-900 text-white border-slate-900 shadow-sm scale-105";
+        } else if (hadPt) {
+          classes += "bg-teal-100/90 text-teal-950 border-teal-400 hover:bg-teal-200";
+        } else {
+          classes += "bg-white text-slate-700 border-slate-300 hover:bg-slate-100";
+        }
+        return `<button onclick="selectState('${uf}')" class="${classes}">${uf}</button>`;
+      }).join('');
+    }
+
+    function selectState(uf) {
+      renderMap(uf);
+      const st = statesData[uf];
+      document.getElementById('state-detail').innerHTML = `
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <div>
+            <span class="text-xs text-slate-400 font-semibold uppercase">Unidade Federativa</span>
+            <h3 class="text-lg font-extrabold text-white">${st.name} (${uf})</h3>
+          </div>
+          <div class="text-right">
+            <span class="text-[11px] text-slate-400 block">Tempo governado pelo PT</span>
+            <span class="text-base font-black ${st.ptYears === 0 ? 'text-amber-400' : 'text-teal-400'}">${st.ptYears} de 24 anos</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">${st.history}</p>
+      `;
+    }
+
+    // Gráfico de governadores eleitos pelo PT por ano
+    const govElections = [
+      { year: "2002", pt: 3 },
+      { year: "2006", pt: 5 },
+      { year: "2010", pt: 5 },
+      { year: "2014", pt: 5 },
+      { year: "2018", pt: 4 },
+      { year: "2022", pt: 4 },
+      { year: "2026*", pt: 3 }
+    ];
+
+    function renderGovChart() {
+      const container = document.getElementById('gov-chart');
+      container.innerHTML = govElections.map(e => {
+        const heightPct = Math.round((e.pt / 27) * 100 * 3.2); // Escala visual proporcional
+        return `
+          <div class="flex flex-col items-center gap-1 h-full justify-end">
+            <span class="text-xs font-extrabold text-teal-800">${e.pt}/27</span>
+            <div class="w-full bg-slate-200 rounded-t-lg h-16 flex items-end overflow-hidden p-0.5">
+              <div class="w-full bg-teal-600 rounded-t-md" style="height: ${heightPct}%"></div>
+            </div>
+            <span class="text-[10px] font-bold text-slate-500">${e.year}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 4. FLUXOGRAMA INTERATIVO (COMO O BRASIL É GOVERNADO)
+    const flowItems = [
+      { role: "Presidente → Executivo Federal", desc: "Comanda os ministérios, a política externa e o orçamento federal, mas não pode criar leis definitivas nem governar estados e cidades." },
+      { role: "Câmara + Senado → Legislativo", desc: "Aprova ou rejeita todas as leis federais, altera o orçamento da União, fiscaliza o Presidente e pode abrir processo de impeachment." },
+      { role: "Governadores → Estados (27 UFs)", desc: "Comandam as Polícias Militar e Civil, hospitais regionais, rodovias estaduais, o Ensino Médio e o imposto estadual (ICMS)." },
+      { role: "Prefeitos → Municípios (5.569)", desc: "Administram creches, Ensino Fundamental, postos de saúde (UBS), transporte de ônibus, coleta de lixo e o uso do solo urbano." },
+      { role: "Judiciário → Poder Independente", desc: "Julga processos e verifica se leis e atos de presidentes, governadores, prefeitos e parlamentares respeitam a Constituição." }
+    ];
+
+    function renderFlowchart(activeIndex = 0) {
+      const container = document.getElementById('flowchart-list');
+      container.innerHTML = flowItems.map((item, idx) => {
+        const isOpen = idx === activeIndex;
+        return `
+          <div onclick="renderFlowchart(${idx})" class="cursor-pointer rounded-2xl border p-4 transition ${
+            isOpen ? 'bg-slate-900 text-white border-slate-900' : 'bg-slate-50 text-slate-900 border-slate-200 hover:bg-slate-100'
+          }">
+            <div class="flex items-center justify-between font-bold text-sm">
+              <span>${item.role}</span>
+              <span class="text-xs ${isOpen ? 'text-teal-400' : 'text-slate-400'}">${isOpen ? '● Aberto' : '+ Ver'}</span>
+            </div>
+            ${isOpen ? `<p class="text-xs text-slate-300 mt-2 leading-relaxed fade-in">${item.desc}</p>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 5. FONTES E COMPARTILHAMENTO
+    function toggleSources() {
+      const box = document.getElementById('sources-box');
+      box.classList.toggle('hidden');
+    }
+
+    async function shareExperience() {
+      const shareData = {
+        title: "O PT governou o Brasil por mais de 20 anos?",
+        text: "Veja os dados oficiais de Presidência, Congresso, estados e municípios entre 2003 e 2026:",
+        url: window.location.href
+      };
+      if (navigator.share && window.location.protocol.startsWith('http')) {
+        try { await navigator.share(shareData); return; } catch (e) {}
+      }
+      navigator.clipboard.writeText(window.location.href);
+      const toast = document.getElementById('copy-toast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    // Inicializar estado padrão
+    selectPresident(0);
+    selectCongressYear("2002");
+    selectState("SP");
+    renderGovChart();
+    renderFlowchart(0);
+  </script>
+</body>
+</html>
